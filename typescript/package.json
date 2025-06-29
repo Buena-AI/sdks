@@ -1,7 +1,16 @@
 {
-  "name": "openapi",
-  "version": "0.0.1",
-  "author": "Speakeasy",
+  "name": "@buena/sdk",
+  "version": "1.0.0",
+  "author": "Buena.ai <support@buena.ai>",
+  "description": "Official TypeScript SDK for Buena.ai API - LinkedIn automation and lead management",
+  "license": "MIT",
+  "homepage": "https://docs.buena.ai",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Buena-AI/sdks.git",
+    "directory": "typescript"
+  },
+  "keywords": ["buena", "linkedin", "automation", "lead-management", "api", "sdk", "typescript"],
   "type": "module",
   "bin": {
     "mcp": "bin/mcp-server.js"
