@@ -1,6 +1,6 @@
 [project]
 name = "buena-sdk"
-version = "1.0.1"
+version = "1.0.2"
 description = "Official Python SDK for Buena.ai API v2 - LinkedIn automation and lead management"
 authors = [
   {name = "Buena.ai", email = "support@buena.ai"},
