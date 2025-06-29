@@ -1,4 +1,4 @@
-module github.com/buena-ai/sdks/go
+module github.com/buena-ai/sdk
 
 go 1.21
 
