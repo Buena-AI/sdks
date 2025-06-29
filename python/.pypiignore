@@ -1,0 +1,46 @@
+# Development files
+*.py[cod]
+__pycache__/
+*.so
+.pytest_cache/
+.coverage
+.tox/
+.mypy_cache/
+.cache
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Git
+.git/
+.gitignore
+
+# Documentation source
+docs/
+*.md
+!README.md
+
+# Testing
+test/
+tests/
+conftest.py
+
+# Build files
+build/
+dist/
+*.egg-info/
+
+# Environment
+.env*
+.DS_Store
+*.log
+
+# Config files
+tox.ini
+mypy.ini
+pytest.ini
+setup.cfg
+pyproject.toml.bak 

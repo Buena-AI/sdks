@@ -1,0 +1,57 @@
+# Source files (keep only dist)
+src/
+*.ts
+!*.d.ts
+tsconfig.json
+tsconfig.*.json
+.tsbuildinfo
+
+# Build tools and configs
+.tshy/
+eslint.config.mjs
+jsr.json
+
+# Dependencies
+node_modules/
+package-lock.json
+.yarn/
+.pnp.*
+
+# Environment and config
+.env*
+.DS_Store
+*.log
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Testing
+coverage/
+.nyc_output/
+test/
+tests/
+__tests__/
+*.test.*
+*.spec.*
+
+# Git
+.git/
+.gitignore
+
+# Speakeasy generated content
+.speakeasy/
+speakeasy-*
+gen.yaml
+
+# Documentation source (keep built docs only)
+docs/
+CONTRIBUTING.md
+FUNCTIONS.md
+RUNTIMES.md
+
+# Misc
+*.tgz
+*.tar.gz 

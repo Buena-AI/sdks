@@ -19,6 +19,13 @@
     "sdk",
     "typescript"
   ],
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "package.json",
+    "USAGE.md"
+  ],
   "publishConfig": {
     "access": "public"
   },

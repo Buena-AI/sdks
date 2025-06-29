@@ -1,0 +1,17 @@
+# Dependencies
+*/node_modules/
+**/node_modules/
+
+# Build artifacts  
+*/dist/
+*/build/
+*.egg-info/
+
+# Environment
+.env*
+*.log
+
+# IDE
+.DS_Store
+.vscode/
+.idea/
