@@ -1,5 +1,5 @@
 {
-  "name": "@buena/sdk",
+  "name": "buena-typescript-sdk",
   "version": "1.0.0",
   "author": "Buena.ai <support@buena.ai>",
   "description": "Official TypeScript SDK for Buena.ai API - LinkedIn automation and lead management",
