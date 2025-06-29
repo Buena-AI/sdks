@@ -11,10 +11,10 @@
     "directory": "typescript"
   },
   "keywords": ["buena", "linkedin", "automation", "lead-management", "api", "sdk", "typescript"],
-  "type": "module",
-  "bin": {
-    "mcp": "bin/mcp-server.js"
+  "publishConfig": {
+    "access": "public"
   },
+  "type": "module",
   "tshy": {
     "sourceDialects": [
       "openapi/source"
@@ -34,7 +34,7 @@
   "scripts": {
     "lint": "eslint --cache --max-warnings=0 src",
     "build:mcp": "bun src/mcp-server/build.mts",
-    "build": "npm run build:mcp && tshy",
+    "build": "tshy",
     "prepublishOnly": "npm run build"
   },
   "peerDependencies": {
