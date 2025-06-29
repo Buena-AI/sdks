@@ -5,7 +5,7 @@ description = "Buena.ai API v2"
 authors = [
   {name = "Buena.ai Support",email = "support@buena.ai"},
 ]
-license = "NoLicense"
+license = "MIT"
 readme = "README.md"
 keywords = ["OpenAPI", "OpenAPI-Generator", "Buena.ai API v2"]
 requires-python = ">=3.9"
