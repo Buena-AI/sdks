@@ -1,0 +1,314 @@
+openapi: 3.0.1
+info:
+  contact:
+    email: support@buena.ai
+    name: Buena.ai Support
+  description: The most powerful LinkedIn automation and lead management API for modern
+    sales teams and developers.
+  title: Buena.ai API v2
+  version: 2.0.0
+servers:
+- description: Production server
+  url: https://api.buena.ai/api/v2
+security:
+- ApiKeyAuth: []
+paths:
+  /health:
+    get:
+      description: Check the API status and health
+      operationId: healthCheck
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/healthCheck_200_response"
+          description: API is healthy
+      summary: Health Check
+  /keys:
+    get:
+      description: List all API keys for the user
+      operationId: listApiKeys
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: "#/components/schemas/ApiKey"
+                type: array
+          description: List of API keys
+      summary: List API Keys
+    post:
+      description: Create a new API key
+      operationId: createApiKey
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/createApiKey_request"
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiKey"
+          description: API key created successfully
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Bad request
+      summary: Create API Key
+  /leads:
+    get:
+      description: Get a list of leads with optional filtering
+      operationId: listLeads
+      parameters:
+      - description: Maximum number of leads to return
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          default: 50
+          maximum: 1000
+          type: integer
+        style: form
+      - description: Number of leads to skip
+        explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          default: 0
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/listLeads_200_response"
+          description: List of leads
+      summary: List Leads
+    post:
+      description: Create a new lead
+      operationId: createLead
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateLeadRequest"
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Lead"
+          description: Lead created successfully
+      summary: Create Lead
+components:
+  schemas:
+    ApiKey:
+      example:
+        permissions:
+        - permissions
+        - permissions
+        last_used: 2000-01-23T04:56:07.000+00:00
+        name: name
+        created_at: 2000-01-23T04:56:07.000+00:00
+        id: id
+        key: key
+      properties:
+        id:
+          description: Unique identifier for the API key
+          type: string
+        name:
+          description: Name of the API key
+          type: string
+        key:
+          description: The actual API key (only shown once during creation)
+          type: string
+        permissions:
+          description: List of permissions
+          items:
+            type: string
+          type: array
+        created_at:
+          description: When the key was created
+          format: date-time
+          type: string
+        last_used:
+          description: When the key was last used
+          format: date-time
+          type: string
+      type: object
+    Lead:
+      example:
+        updated_at: 2000-01-23T04:56:07.000+00:00
+        last_name: last_name
+        created_at: 2000-01-23T04:56:07.000+00:00
+        company: company
+        id: id
+        linkedin_url: linkedin_url
+        title: title
+        first_name: first_name
+        email: email
+        status: new
+      properties:
+        id:
+          description: Unique identifier for the lead
+          type: string
+        first_name:
+          description: First name of the lead
+          type: string
+        last_name:
+          description: Last name of the lead
+          type: string
+        email:
+          description: Email address of the lead
+          format: email
+          type: string
+        company:
+          description: Company name
+          type: string
+        title:
+          description: Job title
+          type: string
+        linkedin_url:
+          description: LinkedIn profile URL
+          type: string
+        status:
+          description: Current status of the lead
+          enum:
+          - new
+          - contacted
+          - responded
+          - converted
+          - unqualified
+          type: string
+        created_at:
+          description: When the lead was created
+          format: date-time
+          type: string
+        updated_at:
+          description: When the lead was last updated
+          format: date-time
+          type: string
+      type: object
+    CreateLeadRequest:
+      example:
+        last_name: last_name
+        company: company
+        linkedin_url: linkedin_url
+        title: title
+        first_name: first_name
+        email: email
+      properties:
+        first_name:
+          description: First name of the lead
+          type: string
+        last_name:
+          description: Last name of the lead
+          type: string
+        email:
+          description: Email address of the lead
+          format: email
+          type: string
+        company:
+          description: Company name
+          type: string
+        title:
+          description: Job title
+          type: string
+        linkedin_url:
+          description: LinkedIn profile URL
+          type: string
+      required:
+      - first_name
+      - last_name
+      type: object
+    Error:
+      example:
+        details: "{}"
+        error: error
+        message: message
+      properties:
+        error:
+          description: Error code
+          type: string
+        message:
+          description: Human-readable error message
+          type: string
+        details:
+          description: Additional error details
+          type: object
+      required:
+      - error
+      - message
+      type: object
+    healthCheck_200_response:
+      example:
+        status: ok
+        timestamp: 2000-01-23T04:56:07.000+00:00
+      properties:
+        status:
+          example: ok
+          type: string
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    createApiKey_request:
+      properties:
+        name:
+          description: Name for the API key
+          type: string
+        permissions:
+          description: List of permissions for the key
+          items:
+            type: string
+          type: array
+      type: object
+    listLeads_200_response:
+      example:
+        total: 0
+        leads:
+        - updated_at: 2000-01-23T04:56:07.000+00:00
+          last_name: last_name
+          created_at: 2000-01-23T04:56:07.000+00:00
+          company: company
+          id: id
+          linkedin_url: linkedin_url
+          title: title
+          first_name: first_name
+          email: email
+          status: new
+        - updated_at: 2000-01-23T04:56:07.000+00:00
+          last_name: last_name
+          created_at: 2000-01-23T04:56:07.000+00:00
+          company: company
+          id: id
+          linkedin_url: linkedin_url
+          title: title
+          first_name: first_name
+          email: email
+          status: new
+      properties:
+        leads:
+          items:
+            $ref: "#/components/schemas/Lead"
+          type: array
+        total:
+          type: integer
+      type: object
+  securitySchemes:
+    ApiKeyAuth:
+      description: API key for authentication
+      in: header
+      name: x-api-key
+      type: apiKey
