@@ -14,7 +14,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"testing"
-	openapiclient "github.com/Buena-AI/sdks/go"
+	openapiclient "github.com/buena-ai/sdks/go"
 )
 
 func Test_buena_DefaultAPIService(t *testing.T) {
