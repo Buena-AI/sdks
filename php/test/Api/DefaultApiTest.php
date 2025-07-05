@@ -97,6 +97,42 @@ class DefaultApiTest extends TestCase
     }
 
     /**
+     * Test case for createVoiceClone
+     *
+     * Create Voice Clone.
+     *
+     */
+    public function testCreateVoiceClone()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test case for deleteVoiceClone
+     *
+     * Delete Voice Clone.
+     *
+     */
+    public function testDeleteVoiceClone()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test case for generateVoicePreview
+     *
+     * Generate Voice Preview.
+     *
+     */
+    public function testGenerateVoicePreview()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
      * Test case for healthCheck
      *
      * Health Check.
@@ -127,6 +163,30 @@ class DefaultApiTest extends TestCase
      *
      */
     public function testListLeads()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test case for listVoiceClones
+     *
+     * List Voice Clones.
+     *
+     */
+    public function testListVoiceClones()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test case for updateVoiceClone
+     *
+     * Update Voice Clone.
+     *
+     */
+    public function testUpdateVoiceClone()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');

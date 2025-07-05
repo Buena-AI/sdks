@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Error** | **string** | Error code | 
-**Message** | **string** | Human-readable error message | 
-**Details** | Pointer to **map[string]interface{}** | Additional error details | [optional] 
+**Success** | **bool** |  | 
+**Error** | **string** | Error message | 
+**Details** | Pointer to **string** | Additional error details | [optional] 
 
 ## Methods
 
 ### NewError
 
-`func NewError(error_ string, message string, ) *Error`
+`func NewError(success bool, error_ string, ) *Error`
 
 NewError instantiates a new Error object
 This constructor will assign default values to properties that have it defined,
@@ -26,6 +26,26 @@ will change when the set of required properties is changed
 NewErrorWithDefaults instantiates a new Error object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetSuccess
+
+`func (o *Error) GetSuccess() bool`
+
+GetSuccess returns the Success field if non-nil, zero value otherwise.
+
+### GetSuccessOk
+
+`func (o *Error) GetSuccessOk() (*bool, bool)`
+
+GetSuccessOk returns a tuple with the Success field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSuccess
+
+`func (o *Error) SetSuccess(v bool)`
+
+SetSuccess sets Success field to given value.
+
 
 ### GetError
 
@@ -47,42 +67,22 @@ and a boolean to check if the value has been set.
 SetError sets Error field to given value.
 
 
-### GetMessage
-
-`func (o *Error) GetMessage() string`
-
-GetMessage returns the Message field if non-nil, zero value otherwise.
-
-### GetMessageOk
-
-`func (o *Error) GetMessageOk() (*string, bool)`
-
-GetMessageOk returns a tuple with the Message field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetMessage
-
-`func (o *Error) SetMessage(v string)`
-
-SetMessage sets Message field to given value.
-
-
 ### GetDetails
 
-`func (o *Error) GetDetails() map[string]interface{}`
+`func (o *Error) GetDetails() string`
 
 GetDetails returns the Details field if non-nil, zero value otherwise.
 
 ### GetDetailsOk
 
-`func (o *Error) GetDetailsOk() (*map[string]interface{}, bool)`
+`func (o *Error) GetDetailsOk() (*string, bool)`
 
 GetDetailsOk returns a tuple with the Details field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDetails
 
-`func (o *Error) SetDetails(v map[string]interface{})`
+`func (o *Error) SetDetails(v string)`
 
 SetDetails sets Details field to given value.
 

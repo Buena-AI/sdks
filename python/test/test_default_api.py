@@ -41,6 +41,27 @@ class TestDefaultApi(unittest.TestCase):
         """
         pass
 
+    def test_create_voice_clone(self) -> None:
+        """Test case for create_voice_clone
+
+        Create Voice Clone
+        """
+        pass
+
+    def test_delete_voice_clone(self) -> None:
+        """Test case for delete_voice_clone
+
+        Delete Voice Clone
+        """
+        pass
+
+    def test_generate_voice_preview(self) -> None:
+        """Test case for generate_voice_preview
+
+        Generate Voice Preview
+        """
+        pass
+
     def test_health_check(self) -> None:
         """Test case for health_check
 
@@ -59,6 +80,20 @@ class TestDefaultApi(unittest.TestCase):
         """Test case for list_leads
 
         List Leads
+        """
+        pass
+
+    def test_list_voice_clones(self) -> None:
+        """Test case for list_voice_clones
+
+        List Voice Clones
+        """
+        pass
+
+    def test_update_voice_clone(self) -> None:
+        """Test case for update_voice_clone
+
+        Update Voice Clone
         """
         pass
 

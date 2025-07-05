@@ -80,9 +80,14 @@ Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *DefaultAPI* | [**CreateApiKey**](docs/DefaultAPI.md#createapikey) | **Post** /keys | Create API Key
 *DefaultAPI* | [**CreateLead**](docs/DefaultAPI.md#createlead) | **Post** /leads | Create Lead
+*DefaultAPI* | [**CreateVoiceClone**](docs/DefaultAPI.md#createvoiceclone) | **Post** /voice-clones | Create Voice Clone
+*DefaultAPI* | [**DeleteVoiceClone**](docs/DefaultAPI.md#deletevoiceclone) | **Delete** /voice-clones/{voiceId} | Delete Voice Clone
+*DefaultAPI* | [**GenerateVoicePreview**](docs/DefaultAPI.md#generatevoicepreview) | **Post** /voice-clones/preview | Generate Voice Preview
 *DefaultAPI* | [**HealthCheck**](docs/DefaultAPI.md#healthcheck) | **Get** /health | Health Check
 *DefaultAPI* | [**ListApiKeys**](docs/DefaultAPI.md#listapikeys) | **Get** /keys | List API Keys
 *DefaultAPI* | [**ListLeads**](docs/DefaultAPI.md#listleads) | **Get** /leads | List Leads
+*DefaultAPI* | [**ListVoiceClones**](docs/DefaultAPI.md#listvoiceclones) | **Get** /voice-clones | List Voice Clones
+*DefaultAPI* | [**UpdateVoiceClone**](docs/DefaultAPI.md#updatevoiceclone) | **Put** /voice-clones/{voiceId} | Update Voice Clone
 
 
 ## Documentation For Models
@@ -90,34 +95,34 @@ Class | Method | HTTP request | Description
  - [ApiKey](docs/ApiKey.md)
  - [CreateApiKeyRequest](docs/CreateApiKeyRequest.md)
  - [CreateLeadRequest](docs/CreateLeadRequest.md)
+ - [DeleteVoiceCloneResponse](docs/DeleteVoiceCloneResponse.md)
  - [Error](docs/Error.md)
  - [HealthCheck200Response](docs/HealthCheck200Response.md)
  - [Lead](docs/Lead.md)
  - [ListLeads200Response](docs/ListLeads200Response.md)
+ - [UpdateVoiceCloneRequest](docs/UpdateVoiceCloneRequest.md)
+ - [UpdateVoiceCloneResponse](docs/UpdateVoiceCloneResponse.md)
+ - [UpdateVoiceCloneResponseData](docs/UpdateVoiceCloneResponseData.md)
+ - [VoiceClone](docs/VoiceClone.md)
+ - [VoiceCloneListResponse](docs/VoiceCloneListResponse.md)
+ - [VoiceCloneListResponseData](docs/VoiceCloneListResponseData.md)
+ - [VoiceCloneResponse](docs/VoiceCloneResponse.md)
+ - [VoiceCloneResponseData](docs/VoiceCloneResponseData.md)
+ - [VoicePreviewRequest](docs/VoicePreviewRequest.md)
 
 
 ## Documentation For Authorization
 
 
 Authentication schemes defined for the API:
-### ApiKeyAuth
+### BearerAuth
 
-- **Type**: API key
-- **API key parameter name**: x-api-key
-- **Location**: HTTP header
-
-Note, each API key must be added to a map of `map[string]APIKey` where the key is: ApiKeyAuth and passed in as the auth context for each request.
+- **Type**: HTTP Bearer token authentication
 
 Example
 
 ```go
-auth := context.WithValue(
-		context.Background(),
-		buena.ContextAPIKeys,
-		map[string]buena.APIKey{
-			"ApiKeyAuth": {Key: "API_KEY_STRING"},
-		},
-	)
+auth := context.WithValue(context.Background(), buena.ContextAccessToken, "BEARER_TOKEN_STRING")
 r, err := client.Service.Operation(auth, args)
 ```
 

@@ -1,13 +1,13 @@
 [project]
-name = "buena-sdk"
-version = "1.0.2"
-description = "Official Python SDK for Buena.ai API v2 - LinkedIn automation and lead management"
+name = "buena_sdk"
+version = "1.0.0"
+description = "Buena.ai API v2"
 authors = [
-  {name = "Buena.ai", email = "support@buena.ai"},
+  {name = "Buena.ai Support",email = "support@buena.ai"},
 ]
-license = {text = "MIT"}
+license = "NoLicense"
 readme = "README.md"
-keywords = ["buena", "linkedin", "automation", "lead-management", "api", "sdk", "python"]
+keywords = ["OpenAPI", "OpenAPI-Generator", "Buena.ai API v2"]
 requires-python = ">=3.9"
 
 dependencies = [
@@ -18,9 +18,7 @@ dependencies = [
 ]
 
 [project.urls]
-Repository = "https://github.com/buena-ai/sdks"
-Documentation = "https://docs.buena.ai"
-Homepage = "https://docs.buena.ai"
+Repository = "https://github.com/GIT_USER_ID/GIT_REPO_ID"
 
 [tool.poetry]
 requires-poetry = ">=2.0"

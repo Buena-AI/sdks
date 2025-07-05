@@ -6,9 +6,14 @@ All URIs are relative to https://api.buena.ai/api/v2, except if the operation de
 | ------------- | ------------- | ------------- |
 | [**createApiKey()**](DefaultApi.md#createApiKey) | **POST** /keys | Create API Key |
 | [**createLead()**](DefaultApi.md#createLead) | **POST** /leads | Create Lead |
+| [**createVoiceClone()**](DefaultApi.md#createVoiceClone) | **POST** /voice-clones | Create Voice Clone |
+| [**deleteVoiceClone()**](DefaultApi.md#deleteVoiceClone) | **DELETE** /voice-clones/{voiceId} | Delete Voice Clone |
+| [**generateVoicePreview()**](DefaultApi.md#generateVoicePreview) | **POST** /voice-clones/preview | Generate Voice Preview |
 | [**healthCheck()**](DefaultApi.md#healthCheck) | **GET** /health | Health Check |
 | [**listApiKeys()**](DefaultApi.md#listApiKeys) | **GET** /keys | List API Keys |
 | [**listLeads()**](DefaultApi.md#listLeads) | **GET** /leads | List Leads |
+| [**listVoiceClones()**](DefaultApi.md#listVoiceClones) | **GET** /voice-clones | List Voice Clones |
+| [**updateVoiceClone()**](DefaultApi.md#updateVoiceClone) | **PUT** /voice-clones/{voiceId} | Update Voice Clone |
 
 
 ## `createApiKey()`
@@ -28,10 +33,8 @@ Create a new API key
 require_once(__DIR__ . '/vendor/autoload.php');
 
 
-// Configure API key authorization: ApiKeyAuth
-$config = OpenAPI\Client\Configuration::getDefaultConfiguration()->setApiKey('x-api-key', 'YOUR_API_KEY');
-// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// $config = OpenAPI\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('x-api-key', 'Bearer');
+// Configure Bearer (JWT) authorization: BearerAuth
+$config = OpenAPI\Client\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
 
 $apiInstance = new OpenAPI\Client\Api\DefaultApi(
@@ -62,7 +65,7 @@ try {
 
 ### Authorization
 
-[ApiKeyAuth](../../README.md#ApiKeyAuth)
+[BearerAuth](../../README.md#BearerAuth)
 
 ### HTTP request headers
 
@@ -90,10 +93,8 @@ Create a new lead
 require_once(__DIR__ . '/vendor/autoload.php');
 
 
-// Configure API key authorization: ApiKeyAuth
-$config = OpenAPI\Client\Configuration::getDefaultConfiguration()->setApiKey('x-api-key', 'YOUR_API_KEY');
-// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// $config = OpenAPI\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('x-api-key', 'Bearer');
+// Configure Bearer (JWT) authorization: BearerAuth
+$config = OpenAPI\Client\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
 
 $apiInstance = new OpenAPI\Client\Api\DefaultApi(
@@ -124,12 +125,196 @@ try {
 
 ### Authorization
 
-[ApiKeyAuth](../../README.md#ApiKeyAuth)
+[BearerAuth](../../README.md#BearerAuth)
 
 ### HTTP request headers
 
 - **Content-Type**: `application/json`
 - **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `createVoiceClone()`
+
+```php
+createVoiceClone($name, $files, $description): \OpenAPI\Client\Model\VoiceCloneResponse
+```
+
+Create Voice Clone
+
+Create a new voice clone from audio file uploads
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer (JWT) authorization: BearerAuth
+$config = OpenAPI\Client\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new OpenAPI\Client\Api\DefaultApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$name = 'name_example'; // string | Descriptive name for the voice clone
+$files = array('/path/to/file.txt'); // \SplFileObject[] | Audio files for voice training (1-10 files, max 50MB each)
+$description = 'description_example'; // string | Optional description of the voice clone
+
+try {
+    $result = $apiInstance->createVoiceClone($name, $files, $description);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling DefaultApi->createVoiceClone: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **name** | **string**| Descriptive name for the voice clone | |
+| **files** | **\SplFileObject[]**| Audio files for voice training (1-10 files, max 50MB each) | |
+| **description** | **string**| Optional description of the voice clone | [optional] |
+
+### Return type
+
+[**\OpenAPI\Client\Model\VoiceCloneResponse**](../Model/VoiceCloneResponse.md)
+
+### Authorization
+
+[BearerAuth](../../README.md#BearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: `multipart/form-data`
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `deleteVoiceClone()`
+
+```php
+deleteVoiceClone($voice_id): \OpenAPI\Client\Model\DeleteVoiceCloneResponse
+```
+
+Delete Voice Clone
+
+Permanently delete a voice clone
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer (JWT) authorization: BearerAuth
+$config = OpenAPI\Client\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new OpenAPI\Client\Api\DefaultApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$voice_id = 'voice_id_example'; // string | The unique identifier of the voice clone
+
+try {
+    $result = $apiInstance->deleteVoiceClone($voice_id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling DefaultApi->deleteVoiceClone: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **voice_id** | **string**| The unique identifier of the voice clone | |
+
+### Return type
+
+[**\OpenAPI\Client\Model\DeleteVoiceCloneResponse**](../Model/DeleteVoiceCloneResponse.md)
+
+### Authorization
+
+[BearerAuth](../../README.md#BearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `generateVoicePreview()`
+
+```php
+generateVoicePreview($voice_preview_request): \SplFileObject
+```
+
+Generate Voice Preview
+
+Generate a voice preview using a voice clone to test quality
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer (JWT) authorization: BearerAuth
+$config = OpenAPI\Client\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new OpenAPI\Client\Api\DefaultApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$voice_preview_request = new \OpenAPI\Client\Model\VoicePreviewRequest(); // \OpenAPI\Client\Model\VoicePreviewRequest
+
+try {
+    $result = $apiInstance->generateVoicePreview($voice_preview_request);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling DefaultApi->generateVoicePreview: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **voice_preview_request** | [**\OpenAPI\Client\Model\VoicePreviewRequest**](../Model/VoicePreviewRequest.md)|  | |
+
+### Return type
+
+**\SplFileObject**
+
+### Authorization
+
+[BearerAuth](../../README.md#BearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `audio/mpeg`, `application/json`
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
 [[Back to Model list]](../../README.md#models)
@@ -152,10 +337,8 @@ Check the API status and health
 require_once(__DIR__ . '/vendor/autoload.php');
 
 
-// Configure API key authorization: ApiKeyAuth
-$config = OpenAPI\Client\Configuration::getDefaultConfiguration()->setApiKey('x-api-key', 'YOUR_API_KEY');
-// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// $config = OpenAPI\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('x-api-key', 'Bearer');
+// Configure Bearer (JWT) authorization: BearerAuth
+$config = OpenAPI\Client\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
 
 $apiInstance = new OpenAPI\Client\Api\DefaultApi(
@@ -183,7 +366,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-[ApiKeyAuth](../../README.md#ApiKeyAuth)
+[BearerAuth](../../README.md#BearerAuth)
 
 ### HTTP request headers
 
@@ -211,10 +394,8 @@ List all API keys for the user
 require_once(__DIR__ . '/vendor/autoload.php');
 
 
-// Configure API key authorization: ApiKeyAuth
-$config = OpenAPI\Client\Configuration::getDefaultConfiguration()->setApiKey('x-api-key', 'YOUR_API_KEY');
-// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// $config = OpenAPI\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('x-api-key', 'Bearer');
+// Configure Bearer (JWT) authorization: BearerAuth
+$config = OpenAPI\Client\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
 
 $apiInstance = new OpenAPI\Client\Api\DefaultApi(
@@ -242,7 +423,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-[ApiKeyAuth](../../README.md#ApiKeyAuth)
+[BearerAuth](../../README.md#BearerAuth)
 
 ### HTTP request headers
 
@@ -270,10 +451,8 @@ Get a list of leads with optional filtering
 require_once(__DIR__ . '/vendor/autoload.php');
 
 
-// Configure API key authorization: ApiKeyAuth
-$config = OpenAPI\Client\Configuration::getDefaultConfiguration()->setApiKey('x-api-key', 'YOUR_API_KEY');
-// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// $config = OpenAPI\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('x-api-key', 'Bearer');
+// Configure Bearer (JWT) authorization: BearerAuth
+$config = OpenAPI\Client\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
 
 $apiInstance = new OpenAPI\Client\Api\DefaultApi(
@@ -306,11 +485,135 @@ try {
 
 ### Authorization
 
-[ApiKeyAuth](../../README.md#ApiKeyAuth)
+[BearerAuth](../../README.md#BearerAuth)
 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `listVoiceClones()`
+
+```php
+listVoiceClones($limit, $offset): \OpenAPI\Client\Model\VoiceCloneListResponse
+```
+
+List Voice Clones
+
+Retrieve all voice clones for the authenticated user
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer (JWT) authorization: BearerAuth
+$config = OpenAPI\Client\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new OpenAPI\Client\Api\DefaultApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$limit = 50; // int | Number of voice clones to return (1-100)
+$offset = 0; // int | Pagination offset
+
+try {
+    $result = $apiInstance->listVoiceClones($limit, $offset);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling DefaultApi->listVoiceClones: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **limit** | **int**| Number of voice clones to return (1-100) | [optional] [default to 50] |
+| **offset** | **int**| Pagination offset | [optional] [default to 0] |
+
+### Return type
+
+[**\OpenAPI\Client\Model\VoiceCloneListResponse**](../Model/VoiceCloneListResponse.md)
+
+### Authorization
+
+[BearerAuth](../../README.md#BearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `updateVoiceClone()`
+
+```php
+updateVoiceClone($voice_id, $update_voice_clone_request): \OpenAPI\Client\Model\UpdateVoiceCloneResponse
+```
+
+Update Voice Clone
+
+Update voice clone settings and metadata
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer (JWT) authorization: BearerAuth
+$config = OpenAPI\Client\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new OpenAPI\Client\Api\DefaultApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$voice_id = 'voice_id_example'; // string | The unique identifier of the voice clone
+$update_voice_clone_request = new \OpenAPI\Client\Model\UpdateVoiceCloneRequest(); // \OpenAPI\Client\Model\UpdateVoiceCloneRequest
+
+try {
+    $result = $apiInstance->updateVoiceClone($voice_id, $update_voice_clone_request);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling DefaultApi->updateVoiceClone: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **voice_id** | **string**| The unique identifier of the voice clone | |
+| **update_voice_clone_request** | [**\OpenAPI\Client\Model\UpdateVoiceCloneRequest**](../Model/UpdateVoiceCloneRequest.md)|  | |
+
+### Return type
+
+[**\OpenAPI\Client\Model\UpdateVoiceCloneResponse**](../Model/UpdateVoiceCloneResponse.md)
+
+### Authorization
+
+[BearerAuth](../../README.md#BearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
 - **Accept**: `application/json`
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)

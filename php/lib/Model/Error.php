@@ -58,9 +58,9 @@ class Error implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
+        'success' => 'bool',
         'error' => 'string',
-        'message' => 'string',
-        'details' => 'object'
+        'details' => 'string'
     ];
 
     /**
@@ -71,8 +71,8 @@ class Error implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
+        'success' => null,
         'error' => null,
-        'message' => null,
         'details' => null
     ];
 
@@ -82,8 +82,8 @@ class Error implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var boolean[]
       */
     protected static array $openAPINullables = [
+        'success' => false,
         'error' => false,
-        'message' => false,
         'details' => false
     ];
 
@@ -173,8 +173,8 @@ class Error implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
+        'success' => 'success',
         'error' => 'error',
-        'message' => 'message',
         'details' => 'details'
     ];
 
@@ -184,8 +184,8 @@ class Error implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
+        'success' => 'setSuccess',
         'error' => 'setError',
-        'message' => 'setMessage',
         'details' => 'setDetails'
     ];
 
@@ -195,8 +195,8 @@ class Error implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
+        'success' => 'getSuccess',
         'error' => 'getError',
-        'message' => 'getMessage',
         'details' => 'getDetails'
     ];
 
@@ -257,8 +257,8 @@ class Error implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(?array $data = null)
     {
+        $this->setIfExists('success', $data ?? [], null);
         $this->setIfExists('error', $data ?? [], null);
-        $this->setIfExists('message', $data ?? [], null);
         $this->setIfExists('details', $data ?? [], null);
     }
 
@@ -289,11 +289,11 @@ class Error implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
+        if ($this->container['success'] === null) {
+            $invalidProperties[] = "'success' can't be null";
+        }
         if ($this->container['error'] === null) {
             $invalidProperties[] = "'error' can't be null";
-        }
-        if ($this->container['message'] === null) {
-            $invalidProperties[] = "'message' can't be null";
         }
         return $invalidProperties;
     }
@@ -311,6 +311,33 @@ class Error implements ModelInterface, ArrayAccess, \JsonSerializable
 
 
     /**
+     * Gets success
+     *
+     * @return bool
+     */
+    public function getSuccess()
+    {
+        return $this->container['success'];
+    }
+
+    /**
+     * Sets success
+     *
+     * @param bool $success success
+     *
+     * @return self
+     */
+    public function setSuccess($success)
+    {
+        if (is_null($success)) {
+            throw new \InvalidArgumentException('non-nullable success cannot be null');
+        }
+        $this->container['success'] = $success;
+
+        return $this;
+    }
+
+    /**
      * Gets error
      *
      * @return string
@@ -323,7 +350,7 @@ class Error implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets error
      *
-     * @param string $error Error code
+     * @param string $error Error message
      *
      * @return self
      */
@@ -338,36 +365,9 @@ class Error implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
-     * Gets message
-     *
-     * @return string
-     */
-    public function getMessage()
-    {
-        return $this->container['message'];
-    }
-
-    /**
-     * Sets message
-     *
-     * @param string $message Human-readable error message
-     *
-     * @return self
-     */
-    public function setMessage($message)
-    {
-        if (is_null($message)) {
-            throw new \InvalidArgumentException('non-nullable message cannot be null');
-        }
-        $this->container['message'] = $message;
-
-        return $this;
-    }
-
-    /**
      * Gets details
      *
-     * @return object|null
+     * @return string|null
      */
     public function getDetails()
     {
@@ -377,7 +377,7 @@ class Error implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets details
      *
-     * @param object|null $details Additional error details
+     * @param string|null $details Additional error details
      *
      * @return self
      */

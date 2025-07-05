@@ -18,7 +18,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
@@ -27,10 +27,10 @@ class Error(BaseModel):
     """
     Error
     """ # noqa: E501
-    error: StrictStr = Field(description="Error code")
-    message: StrictStr = Field(description="Human-readable error message")
-    details: Optional[Dict[str, Any]] = Field(default=None, description="Additional error details")
-    __properties: ClassVar[List[str]] = ["error", "message", "details"]
+    success: StrictBool
+    error: StrictStr = Field(description="Error message")
+    details: Optional[StrictStr] = Field(default=None, description="Additional error details")
+    __properties: ClassVar[List[str]] = ["success", "error", "details"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -83,8 +83,8 @@ class Error(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "success": obj.get("success"),
             "error": obj.get("error"),
-            "message": obj.get("message"),
             "details": obj.get("details")
         })
         return _obj

@@ -81,18 +81,18 @@ class ErrorTest extends TestCase
     }
 
     /**
-     * Test attribute "error"
+     * Test attribute "success"
      */
-    public function testPropertyError()
+    public function testPropertySuccess()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');
     }
 
     /**
-     * Test attribute "message"
+     * Test attribute "error"
      */
-    public function testPropertyMessage()
+    public function testPropertyError()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');

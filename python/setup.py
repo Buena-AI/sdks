@@ -37,7 +37,7 @@ setup(
     description="Buena.ai API v2",
     author="Buena.ai Support",
     author_email="support@buena.ai",
-    license="MIT",    url="",
+    url="https://github.com/Buena-AI/sdks",
     keywords=["OpenAPI", "OpenAPI-Generator", "Buena.ai API v2"],
     install_requires=REQUIRES,
     packages=find_packages(exclude=["test", "tests"]),

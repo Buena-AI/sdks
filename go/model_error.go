@@ -22,12 +22,11 @@ var _ MappedNullable = &Error{}
 
 // Error struct for Error
 type Error struct {
-	// Error code
+	Success bool `json:"success"`
+	// Error message
 	Error string `json:"error"`
-	// Human-readable error message
-	Message string `json:"message"`
 	// Additional error details
-	Details map[string]interface{} `json:"details,omitempty"`
+	Details *string `json:"details,omitempty"`
 }
 
 type _Error Error
@@ -36,10 +35,10 @@ type _Error Error
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewError(error_ string, message string) *Error {
+func NewError(success bool, error_ string) *Error {
 	this := Error{}
+	this.Success = success
 	this.Error = error_
-	this.Message = message
 	return &this
 }
 
@@ -49,6 +48,30 @@ func NewError(error_ string, message string) *Error {
 func NewErrorWithDefaults() *Error {
 	this := Error{}
 	return &this
+}
+
+// GetSuccess returns the Success field value
+func (o *Error) GetSuccess() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.Success
+}
+
+// GetSuccessOk returns a tuple with the Success field value
+// and a boolean to check if the value has been set.
+func (o *Error) GetSuccessOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Success, true
+}
+
+// SetSuccess sets field value
+func (o *Error) SetSuccess(v bool) {
+	o.Success = v
 }
 
 // GetError returns the Error field value
@@ -75,44 +98,20 @@ func (o *Error) SetError(v string) {
 	o.Error = v
 }
 
-// GetMessage returns the Message field value
-func (o *Error) GetMessage() string {
-	if o == nil {
+// GetDetails returns the Details field value if set, zero value otherwise.
+func (o *Error) GetDetails() string {
+	if o == nil || IsNil(o.Details) {
 		var ret string
 		return ret
 	}
-
-	return o.Message
-}
-
-// GetMessageOk returns a tuple with the Message field value
-// and a boolean to check if the value has been set.
-func (o *Error) GetMessageOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Message, true
-}
-
-// SetMessage sets field value
-func (o *Error) SetMessage(v string) {
-	o.Message = v
-}
-
-// GetDetails returns the Details field value if set, zero value otherwise.
-func (o *Error) GetDetails() map[string]interface{} {
-	if o == nil || IsNil(o.Details) {
-		var ret map[string]interface{}
-		return ret
-	}
-	return o.Details
+	return *o.Details
 }
 
 // GetDetailsOk returns a tuple with the Details field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Error) GetDetailsOk() (map[string]interface{}, bool) {
+func (o *Error) GetDetailsOk() (*string, bool) {
 	if o == nil || IsNil(o.Details) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
 	return o.Details, true
 }
@@ -126,9 +125,9 @@ func (o *Error) HasDetails() bool {
 	return false
 }
 
-// SetDetails gets a reference to the given map[string]interface{} and assigns it to the Details field.
-func (o *Error) SetDetails(v map[string]interface{}) {
-	o.Details = v
+// SetDetails gets a reference to the given string and assigns it to the Details field.
+func (o *Error) SetDetails(v string) {
+	o.Details = &v
 }
 
 func (o Error) MarshalJSON() ([]byte, error) {
@@ -141,8 +140,8 @@ func (o Error) MarshalJSON() ([]byte, error) {
 
 func (o Error) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["success"] = o.Success
 	toSerialize["error"] = o.Error
-	toSerialize["message"] = o.Message
 	if !IsNil(o.Details) {
 		toSerialize["details"] = o.Details
 	}
@@ -154,8 +153,8 @@ func (o *Error) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
+		"success",
 		"error",
-		"message",
 	}
 
 	allProperties := make(map[string]interface{})

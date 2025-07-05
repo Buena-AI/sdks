@@ -32,10 +32,20 @@ __all__ = [
     "ApiKey",
     "CreateApiKeyRequest",
     "CreateLeadRequest",
+    "DeleteVoiceCloneResponse",
     "Error",
     "HealthCheck200Response",
     "Lead",
     "ListLeads200Response",
+    "UpdateVoiceCloneRequest",
+    "UpdateVoiceCloneResponse",
+    "UpdateVoiceCloneResponseData",
+    "VoiceClone",
+    "VoiceCloneListResponse",
+    "VoiceCloneListResponseData",
+    "VoiceCloneResponse",
+    "VoiceCloneResponseData",
+    "VoicePreviewRequest",
 ]
 
 # import apis into sdk package
@@ -56,7 +66,17 @@ from buena_sdk.exceptions import ApiException as ApiException
 from buena_sdk.models.api_key import ApiKey as ApiKey
 from buena_sdk.models.create_api_key_request import CreateApiKeyRequest as CreateApiKeyRequest
 from buena_sdk.models.create_lead_request import CreateLeadRequest as CreateLeadRequest
+from buena_sdk.models.delete_voice_clone_response import DeleteVoiceCloneResponse as DeleteVoiceCloneResponse
 from buena_sdk.models.error import Error as Error
 from buena_sdk.models.health_check200_response import HealthCheck200Response as HealthCheck200Response
 from buena_sdk.models.lead import Lead as Lead
 from buena_sdk.models.list_leads200_response import ListLeads200Response as ListLeads200Response
+from buena_sdk.models.update_voice_clone_request import UpdateVoiceCloneRequest as UpdateVoiceCloneRequest
+from buena_sdk.models.update_voice_clone_response import UpdateVoiceCloneResponse as UpdateVoiceCloneResponse
+from buena_sdk.models.update_voice_clone_response_data import UpdateVoiceCloneResponseData as UpdateVoiceCloneResponseData
+from buena_sdk.models.voice_clone import VoiceClone as VoiceClone
+from buena_sdk.models.voice_clone_list_response import VoiceCloneListResponse as VoiceCloneListResponse
+from buena_sdk.models.voice_clone_list_response_data import VoiceCloneListResponseData as VoiceCloneListResponseData
+from buena_sdk.models.voice_clone_response import VoiceCloneResponse as VoiceCloneResponse
+from buena_sdk.models.voice_clone_response_data import VoiceCloneResponseData as VoiceCloneResponseData
+from buena_sdk.models.voice_preview_request import VoicePreviewRequest as VoicePreviewRequest

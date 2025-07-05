@@ -5,9 +5,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**error** | **str** | Error code | 
-**message** | **str** | Human-readable error message | 
-**details** | **object** | Additional error details | [optional] 
+**success** | **bool** |  | 
+**error** | **str** | Error message | 
+**details** | **str** | Additional error details | [optional] 
 
 ## Example
 

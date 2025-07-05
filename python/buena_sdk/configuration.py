@@ -114,7 +114,7 @@ HTTPSignatureAuthSetting = TypedDict(
 AuthSettings = TypedDict(
     "AuthSettings",
     {
-        "ApiKeyAuth": APIKeyAuthSetting,
+        "BearerAuth": BearerFormatAuthSetting,
     },
     total=False,
 )
@@ -166,25 +166,6 @@ class Configuration:
       in PEM (str) or DER (bytes) format.
 
     :Example:
-
-    API Key Authentication Example.
-    Given the following security scheme in the OpenAPI specification:
-      components:
-        securitySchemes:
-          cookieAuth:         # name for the security scheme
-            type: apiKey
-            in: cookie
-            name: JSESSIONID  # cookie name
-
-    You can programmatically set the cookie:
-
-conf = buena_sdk.Configuration(
-    api_key={'cookieAuth': 'abc123'}
-    api_key_prefix={'cookieAuth': 'JSESSIONID'}
-)
-
-    The following cookie will be added to the HTTP request:
-       Cookie: JSESSIONID abc123
     """
 
     _default: ClassVar[Optional[Self]] = None
@@ -512,14 +493,13 @@ conf = buena_sdk.Configuration(
         :return: The Auth Settings information dict.
         """
         auth: AuthSettings = {}
-        if 'ApiKeyAuth' in self.api_key:
-            auth['ApiKeyAuth'] = {
-                'type': 'api_key',
+        if self.access_token is not None:
+            auth['BearerAuth'] = {
+                'type': 'bearer',
                 'in': 'header',
-                'key': 'x-api-key',
-                'value': self.get_api_key_with_prefix(
-                    'ApiKeyAuth',
-                ),
+                'format': 'JWT',
+                'key': 'Authorization',
+                'value': 'Bearer ' + self.access_token
             }
         return auth
 

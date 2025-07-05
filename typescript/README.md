@@ -1,534 +1,96 @@
-# openapi
+## @buena/sdk@1.0.0
 
-Developer-friendly & type-safe Typescript SDK specifically catered to leverage _openapi_ API.
+This generator creates TypeScript/JavaScript client that utilizes [axios](https://github.com/axios/axios). The generated Node module can be used in the following environments:
 
-<div align="left">
-    <a href="https://www.speakeasy.com/?utm_source=openapi&utm_campaign=typescript"><img src="https://custom-icon-badges.demolab.com/badge/-Built%20By%20Speakeasy-212015?style=for-the-badge&logoColor=FBE331&logo=speakeasy&labelColor=545454" /></a>
-    <a href="https://opensource.org/licenses/MIT">
-        <img src="https://img.shields.io/badge/License-MIT-blue.svg" style="width: 100px; height: 28px;" />
-    </a>
-</div>
+Environment
+* Node.js
+* Webpack
+* Browserify
 
-<!-- Start Summary [summary] -->
+Language level
+* ES5 - you must have a Promises/A+ library installed
+* ES6
 
-## Summary
+Module system
+* CommonJS
+* ES6 module system
 
-Buena.ai API v2: The most powerful LinkedIn automation and lead management API for modern sales teams and developers.
+It can be used in both TypeScript and JavaScript. In TypeScript, the definition will be automatically resolved via `package.json`. ([Reference](https://www.typescriptlang.org/docs/handbook/declaration-files/consumption.html))
 
-<!-- End Summary [summary] -->
+### Building
 
-<!-- Start Table of Contents [toc] -->
-
-## Table of Contents
-
-<!-- $toc-max-depth=2 -->
-
-- [openapi](#openapi)
-  - [SDK Installation](#sdk-installation)
-  - [Requirements](#requirements)
-  - [SDK Example Usage](#sdk-example-usage)
-  - [Authentication](#authentication)
-  - [Available Resources and Operations](#available-resources-and-operations)
-  - [Standalone functions](#standalone-functions)
-  - [Retries](#retries)
-  - [Error Handling](#error-handling)
-  - [Server Selection](#server-selection)
-  - [Custom HTTP Client](#custom-http-client)
-  - [Debugging](#debugging)
-- [Development](#development)
-  - [Maturity](#maturity)
-  - [Contributions](#contributions)
-
-<!-- End Table of Contents [toc] -->
-
-<!-- Start SDK Installation [installation] -->
-
-## SDK Installation
-
-> [!TIP]
-> To finish publishing your SDK to npm and others you must [run your first generation action](https://www.speakeasy.com/docs/github-setup#step-by-step-guide).
-
-The SDK can be installed with either [npm](https://www.npmjs.com/), [pnpm](https://pnpm.io/), [bun](https://bun.sh/) or [yarn](https://classic.yarnpkg.com/en/) package managers.
-
-### NPM
-
-```bash
-npm add @buena/sdk
+To build and compile the typescript sources to javascript use:
+```
+npm install
+npm run build
 ```
 
-### PNPM
+### Publishing
 
-```bash
-pnpm add @buena/sdk
+First build the package then run `npm publish`
+
+### Consuming
+
+navigate to the folder of your consuming project and run one of the following commands.
+
+_published:_
+
+```
+npm install @buena/sdk@1.0.0 --save
 ```
 
-### Bun
+_unPublished (not recommended):_
 
-```bash
-bun add @buena/sdk
+```
+npm install PATH_TO_GENERATED_PACKAGE --save
 ```
 
-### Yarn
+### Documentation for API Endpoints
+
+All URIs are relative to *https://api.buena.ai/api/v2*
+
+Class | Method | HTTP request | Description
+------------ | ------------- | ------------- | -------------
+*DefaultApi* | [**createApiKey**](docs/DefaultApi.md#createapikey) | **POST** /keys | Create API Key
+*DefaultApi* | [**createLead**](docs/DefaultApi.md#createlead) | **POST** /leads | Create Lead
+*DefaultApi* | [**createVoiceClone**](docs/DefaultApi.md#createvoiceclone) | **POST** /voice-clones | Create Voice Clone
+*DefaultApi* | [**deleteVoiceClone**](docs/DefaultApi.md#deletevoiceclone) | **DELETE** /voice-clones/{voiceId} | Delete Voice Clone
+*DefaultApi* | [**generateVoicePreview**](docs/DefaultApi.md#generatevoicepreview) | **POST** /voice-clones/preview | Generate Voice Preview
+*DefaultApi* | [**healthCheck**](docs/DefaultApi.md#healthcheck) | **GET** /health | Health Check
+*DefaultApi* | [**listApiKeys**](docs/DefaultApi.md#listapikeys) | **GET** /keys | List API Keys
+*DefaultApi* | [**listLeads**](docs/DefaultApi.md#listleads) | **GET** /leads | List Leads
+*DefaultApi* | [**listVoiceClones**](docs/DefaultApi.md#listvoiceclones) | **GET** /voice-clones | List Voice Clones
+*DefaultApi* | [**updateVoiceClone**](docs/DefaultApi.md#updatevoiceclone) | **PUT** /voice-clones/{voiceId} | Update Voice Clone
+
+
+### Documentation For Models
+
+ - [ApiKey](docs/ApiKey.md)
+ - [CreateApiKeyRequest](docs/CreateApiKeyRequest.md)
+ - [CreateLeadRequest](docs/CreateLeadRequest.md)
+ - [DeleteVoiceCloneResponse](docs/DeleteVoiceCloneResponse.md)
+ - [HealthCheck200Response](docs/HealthCheck200Response.md)
+ - [Lead](docs/Lead.md)
+ - [ListLeads200Response](docs/ListLeads200Response.md)
+ - [ModelError](docs/ModelError.md)
+ - [UpdateVoiceCloneRequest](docs/UpdateVoiceCloneRequest.md)
+ - [UpdateVoiceCloneResponse](docs/UpdateVoiceCloneResponse.md)
+ - [UpdateVoiceCloneResponseData](docs/UpdateVoiceCloneResponseData.md)
+ - [VoiceClone](docs/VoiceClone.md)
+ - [VoiceCloneListResponse](docs/VoiceCloneListResponse.md)
+ - [VoiceCloneListResponseData](docs/VoiceCloneListResponseData.md)
+ - [VoiceCloneResponse](docs/VoiceCloneResponse.md)
+ - [VoiceCloneResponseData](docs/VoiceCloneResponseData.md)
+ - [VoicePreviewRequest](docs/VoicePreviewRequest.md)
+
+
+<a id="documentation-for-authorization"></a>
+## Documentation For Authorization
+
+
+Authentication schemes defined for the API:
+<a id="BearerAuth"></a>
+### BearerAuth
+
+- **Type**: Bearer authentication (JWT)
 
-```bash
-yarn add @buena/sdk zod
-
-# Note that Yarn does not install peer dependencies automatically. You will need
-# to install zod as shown above.
-```
-
-> [!NOTE]
-> This package is published with CommonJS and ES Modules (ESM) support.
-
-### Model Context Protocol (MCP) Server
-
-This SDK is also an installable MCP server where the various SDK methods are
-exposed as tools that can be invoked by AI applications.
-
-> Node.js v20 or greater is required to run the MCP server from npm.
-
-<details>
-<summary>Claude installation steps</summary>
-
-Add the following server definition to your `claude_desktop_config.json` file:
-
-```json
-{
-  "mcpServers": {
-    "SDK": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "--package",
-        "@buena/sdk",
-        "--",
-        "mcp",
-        "start",
-        "--api-key-auth",
-        "..."
-      ]
-    }
-  }
-}
-```
-
-</details>
-
-<details>
-<summary>Cursor installation steps</summary>
-
-Create a `.cursor/mcp.json` file in your project root with the following content:
-
-```json
-{
-  "mcpServers": {
-    "SDK": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "--package",
-        "@buena/sdk",
-        "--",
-        "mcp",
-        "start",
-        "--api-key-auth",
-        "..."
-      ]
-    }
-  }
-}
-```
-
-</details>
-
-You can also run MCP servers as a standalone binary with no additional dependencies. You must pull these binaries from available Github releases:
-
-```bash
-curl -L -o mcp-server \
-    https://github.com/{org}/{repo}/releases/download/{tag}/mcp-server-bun-darwin-arm64 && \
-chmod +x mcp-server
-```
-
-If the repo is a private repo you must add your Github PAT to download a release `-H "Authorization: Bearer {GITHUB_PAT}"`.
-
-```json
-{
-  "mcpServers": {
-    "Todos": {
-      "command": "./DOWNLOAD/PATH/mcp-server",
-      "args": ["start"]
-    }
-  }
-}
-```
-
-For a full list of server arguments, run:
-
-```sh
-npx -y --package @buena/sdk -- mcp start --help
-```
-
-<!-- End SDK Installation [installation] -->
-
-<!-- Start Requirements [requirements] -->
-
-## Requirements
-
-For supported JavaScript runtimes, please consult [RUNTIMES.md](RUNTIMES.md).
-
-<!-- End Requirements [requirements] -->
-
-<!-- Start SDK Example Usage [usage] -->
-
-## SDK Example Usage
-
-### Example
-
-```typescript
-import { SDK } from "@buena/sdk";
-
-const sdk = new SDK({
-  apiKeyAuth: "<YOUR_API_KEY_HERE>",
-});
-
-async function run() {
-  const result = await sdk.healthCheck();
-
-  console.log(result);
-}
-
-run();
-```
-
-<!-- End SDK Example Usage [usage] -->
-
-<!-- Start Authentication [security] -->
-
-## Authentication
-
-### Per-Client Security Schemes
-
-This SDK supports the following security scheme globally:
-
-| Name         | Type   | Scheme  |
-| ------------ | ------ | ------- |
-| `apiKeyAuth` | apiKey | API key |
-
-To authenticate with the API the `apiKeyAuth` parameter must be set when initializing the SDK client instance. For example:
-
-```typescript
-import { SDK } from "@buena/sdk";
-
-const sdk = new SDK({
-  apiKeyAuth: "<YOUR_API_KEY_HERE>",
-});
-
-async function run() {
-  const result = await sdk.healthCheck();
-
-  console.log(result);
-}
-
-run();
-```
-
-<!-- End Authentication [security] -->
-
-<!-- Start Available Resources and Operations [operations] -->
-
-## Available Resources and Operations
-
-<details open>
-<summary>Available methods</summary>
-
-### [SDK](docs/sdks/sdk/README.md)
-
-- [healthCheck](docs/sdks/sdk/README.md#healthcheck) - Health Check
-- [createApiKey](docs/sdks/sdk/README.md#createapikey) - Create API Key
-- [listApiKeys](docs/sdks/sdk/README.md#listapikeys) - List API Keys
-- [listLeads](docs/sdks/sdk/README.md#listleads) - List Leads
-- [createLead](docs/sdks/sdk/README.md#createlead) - Create Lead
-
-</details>
-<!-- End Available Resources and Operations [operations] -->
-
-<!-- Start Standalone functions [standalone-funcs] -->
-
-## Standalone functions
-
-All the methods listed above are available as standalone functions. These
-functions are ideal for use in applications running in the browser, serverless
-runtimes or other environments where application bundle size is a primary
-concern. When using a bundler to build your application, all unused
-functionality will be either excluded from the final bundle or tree-shaken away.
-
-To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
-
-<details>
-
-<summary>Available standalone functions</summary>
-
-- [`createApiKey`](docs/sdks/sdk/README.md#createapikey) - Create API Key
-- [`createLead`](docs/sdks/sdk/README.md#createlead) - Create Lead
-- [`healthCheck`](docs/sdks/sdk/README.md#healthcheck) - Health Check
-- [`listApiKeys`](docs/sdks/sdk/README.md#listapikeys) - List API Keys
-- [`listLeads`](docs/sdks/sdk/README.md#listleads) - List Leads
-
-</details>
-<!-- End Standalone functions [standalone-funcs] -->
-
-<!-- Start Retries [retries] -->
-
-## Retries
-
-Some of the endpoints in this SDK support retries. If you use the SDK without any configuration, it will fall back to the default retry strategy provided by the API. However, the default retry strategy can be overridden on a per-operation basis, or across the entire SDK.
-
-To change the default retry strategy for a single API call, simply provide a retryConfig object to the call:
-
-```typescript
-import { SDK } from "@buena/sdk";
-
-const sdk = new SDK({
-  apiKeyAuth: "<YOUR_API_KEY_HERE>",
-});
-
-async function run() {
-  const result = await sdk.healthCheck({
-    retries: {
-      strategy: "backoff",
-      backoff: {
-        initialInterval: 1,
-        maxInterval: 50,
-        exponent: 1.1,
-        maxElapsedTime: 100,
-      },
-      retryConnectionErrors: false,
-    },
-  });
-
-  console.log(result);
-}
-
-run();
-```
-
-If you'd like to override the default retry strategy for all operations that support retries, you can provide a retryConfig at SDK initialization:
-
-```typescript
-import { SDK } from "@buena/sdk";
-
-const sdk = new SDK({
-  retryConfig: {
-    strategy: "backoff",
-    backoff: {
-      initialInterval: 1,
-      maxInterval: 50,
-      exponent: 1.1,
-      maxElapsedTime: 100,
-    },
-    retryConnectionErrors: false,
-  },
-  apiKeyAuth: "<YOUR_API_KEY_HERE>",
-});
-
-async function run() {
-  const result = await sdk.healthCheck();
-
-  console.log(result);
-}
-
-run();
-```
-
-<!-- End Retries [retries] -->
-
-<!-- Start Error Handling [errors] -->
-
-## Error Handling
-
-[`SDKError`](./src/models/errors/sdkerror.ts) is the base class for all HTTP error responses. It has the following properties:
-
-| Property            | Type       | Description                                                                             |
-| ------------------- | ---------- | --------------------------------------------------------------------------------------- |
-| `error.message`     | `string`   | Error message                                                                           |
-| `error.statusCode`  | `number`   | HTTP response status code eg `404`                                                      |
-| `error.headers`     | `Headers`  | HTTP response headers                                                                   |
-| `error.body`        | `string`   | HTTP body. Can be empty string if no body is returned.                                  |
-| `error.rawResponse` | `Response` | Raw HTTP response                                                                       |
-| `error.data$`       |            | Optional. Some errors may contain structured data. [See Error Classes](#error-classes). |
-
-### Example
-
-```typescript
-import { SDK } from "@buena/sdk";
-import * as errors from "@buena/sdk/models/errors";
-
-const sdk = new SDK({
-  apiKeyAuth: "<YOUR_API_KEY_HERE>",
-});
-
-async function run() {
-  try {
-    const result = await sdk.createApiKey({});
-
-    console.log(result);
-  } catch (error) {
-    // The base class for HTTP error responses
-    if (error instanceof errors.SDKError) {
-      console.log(error.message);
-      console.log(error.statusCode);
-      console.log(error.body);
-      console.log(error.headers);
-
-      // Depending on the method different errors may be thrown
-      if (error instanceof errors.ErrorT) {
-        console.log(error.data$.error); // string
-        console.log(error.data$.message); // string
-        console.log(error.data$.details); // models.Details
-      }
-    }
-  }
-}
-
-run();
-```
-
-### Error Classes
-
-**Primary error:**
-
-- [`SDKError`](./src/models/errors/sdkerror.ts): The base class for HTTP error responses.
-
-<details><summary>Less common errors (7)</summary>
-
-<br />
-
-**Network errors:**
-
-- [`ConnectionError`](./src/models/errors/httpclienterrors.ts): HTTP client was unable to make a request to a server.
-- [`RequestTimeoutError`](./src/models/errors/httpclienterrors.ts): HTTP request timed out due to an AbortSignal signal.
-- [`RequestAbortedError`](./src/models/errors/httpclienterrors.ts): HTTP request was aborted by the client.
-- [`InvalidRequestError`](./src/models/errors/httpclienterrors.ts): Any input used to create a request is invalid.
-- [`UnexpectedClientError`](./src/models/errors/httpclienterrors.ts): Unrecognised or unexpected error.
-
-**Inherit from [`SDKError`](./src/models/errors/sdkerror.ts)**:
-
-- [`ErrorT`](docs/models/errors/errort.md): Bad request. Status code `400`. Applicable to 1 of 5 methods.\*
-- [`ResponseValidationError`](./src/models/errors/responsevalidationerror.ts): Type mismatch between the data returned from the server and the structure expected by the SDK. See `error.rawValue` for the raw value and `error.pretty()` for a nicely formatted multi-line string.
-
-</details>
-
-\* Check [the method documentation](#available-resources-and-operations) to see if the error is applicable.
-
-<!-- End Error Handling [errors] -->
-
-<!-- Start Server Selection [server] -->
-
-## Server Selection
-
-### Override Server URL Per-Client
-
-The default server can be overridden globally by passing a URL to the `serverURL: string` optional parameter when initializing the SDK client instance. For example:
-
-```typescript
-import { SDK } from "@buena/sdk";
-
-const sdk = new SDK({
-  serverURL: "https://api.buena.ai/api/v2",
-  apiKeyAuth: "<YOUR_API_KEY_HERE>",
-});
-
-async function run() {
-  const result = await sdk.healthCheck();
-
-  console.log(result);
-}
-
-run();
-```
-
-<!-- End Server Selection [server] -->
-
-<!-- Start Custom HTTP Client [http-client] -->
-
-## Custom HTTP Client
-
-The TypeScript SDK makes API calls using an `HTTPClient` that wraps the native
-[Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API). This
-client is a thin wrapper around `fetch` and provides the ability to attach hooks
-around the request lifecycle that can be used to modify the request or handle
-errors and response.
-
-The `HTTPClient` constructor takes an optional `fetcher` argument that can be
-used to integrate a third-party HTTP client or when writing tests to mock out
-the HTTP client and feed in fixtures.
-
-The following example shows how to use the `"beforeRequest"` hook to to add a
-custom header and a timeout to requests and how to use the `"requestError"` hook
-to log errors:
-
-```typescript
-import { SDK } from "@buena/sdk";
-import { HTTPClient } from "@buena/sdk/lib/http";
-
-const httpClient = new HTTPClient({
-  // fetcher takes a function that has the same signature as native `fetch`.
-  fetcher: (request) => {
-    return fetch(request);
-  },
-});
-
-httpClient.addHook("beforeRequest", (request) => {
-  const nextRequest = new Request(request, {
-    signal: request.signal || AbortSignal.timeout(5000),
-  });
-
-  nextRequest.headers.set("x-custom-header", "custom value");
-
-  return nextRequest;
-});
-
-httpClient.addHook("requestError", (error, request) => {
-  console.group("Request Error");
-  console.log("Reason:", `${error}`);
-  console.log("Endpoint:", `${request.method} ${request.url}`);
-  console.groupEnd();
-});
-
-const sdk = new SDK({ httpClient });
-```
-
-<!-- End Custom HTTP Client [http-client] -->
-
-<!-- Start Debugging [debug] -->
-
-## Debugging
-
-You can setup your SDK to emit debug logs for SDK requests and responses.
-
-You can pass a logger that matches `console`'s interface as an SDK option.
-
-> [!WARNING]
-> Beware that debug logging will reveal secrets, like API tokens in headers, in log messages printed to a console or files. It's recommended to use this feature only during local development and not in production.
-
-```typescript
-import { SDK } from "@buena/sdk";
-
-const sdk = new SDK({ debugLogger: console });
-```
-
-<!-- End Debugging [debug] -->
-
-<!-- Placeholder for Future Speakeasy SDK Sections -->
-
-# Development
-
-## Maturity
-
-This SDK is in beta, and there may be breaking changes between versions without a major version update. Therefore, we recommend pinning usage
-to a specific package version. This way, you can install the same version each time without breaking changes unless you are intentionally
-looking for the latest version.
-
-## Contributions
-
-angel@buena.ai

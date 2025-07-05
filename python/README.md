@@ -66,11 +66,10 @@ configuration = buena_sdk.Configuration(
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
 
-# Configure API key authorization: ApiKeyAuth
-configuration.api_key['ApiKeyAuth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['ApiKeyAuth'] = 'Bearer'
+# Configure Bearer authorization (JWT): BearerAuth
+configuration = buena_sdk.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
 
 
 # Enter a context with an instance of the API client
@@ -97,9 +96,14 @@ Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *DefaultApi* | [**create_api_key**](docs/DefaultApi.md#create_api_key) | **POST** /keys | Create API Key
 *DefaultApi* | [**create_lead**](docs/DefaultApi.md#create_lead) | **POST** /leads | Create Lead
+*DefaultApi* | [**create_voice_clone**](docs/DefaultApi.md#create_voice_clone) | **POST** /voice-clones | Create Voice Clone
+*DefaultApi* | [**delete_voice_clone**](docs/DefaultApi.md#delete_voice_clone) | **DELETE** /voice-clones/{voiceId} | Delete Voice Clone
+*DefaultApi* | [**generate_voice_preview**](docs/DefaultApi.md#generate_voice_preview) | **POST** /voice-clones/preview | Generate Voice Preview
 *DefaultApi* | [**health_check**](docs/DefaultApi.md#health_check) | **GET** /health | Health Check
 *DefaultApi* | [**list_api_keys**](docs/DefaultApi.md#list_api_keys) | **GET** /keys | List API Keys
 *DefaultApi* | [**list_leads**](docs/DefaultApi.md#list_leads) | **GET** /leads | List Leads
+*DefaultApi* | [**list_voice_clones**](docs/DefaultApi.md#list_voice_clones) | **GET** /voice-clones | List Voice Clones
+*DefaultApi* | [**update_voice_clone**](docs/DefaultApi.md#update_voice_clone) | **PUT** /voice-clones/{voiceId} | Update Voice Clone
 
 
 ## Documentation For Models
@@ -107,10 +111,20 @@ Class | Method | HTTP request | Description
  - [ApiKey](docs/ApiKey.md)
  - [CreateApiKeyRequest](docs/CreateApiKeyRequest.md)
  - [CreateLeadRequest](docs/CreateLeadRequest.md)
+ - [DeleteVoiceCloneResponse](docs/DeleteVoiceCloneResponse.md)
  - [Error](docs/Error.md)
  - [HealthCheck200Response](docs/HealthCheck200Response.md)
  - [Lead](docs/Lead.md)
  - [ListLeads200Response](docs/ListLeads200Response.md)
+ - [UpdateVoiceCloneRequest](docs/UpdateVoiceCloneRequest.md)
+ - [UpdateVoiceCloneResponse](docs/UpdateVoiceCloneResponse.md)
+ - [UpdateVoiceCloneResponseData](docs/UpdateVoiceCloneResponseData.md)
+ - [VoiceClone](docs/VoiceClone.md)
+ - [VoiceCloneListResponse](docs/VoiceCloneListResponse.md)
+ - [VoiceCloneListResponseData](docs/VoiceCloneListResponseData.md)
+ - [VoiceCloneResponse](docs/VoiceCloneResponse.md)
+ - [VoiceCloneResponseData](docs/VoiceCloneResponseData.md)
+ - [VoicePreviewRequest](docs/VoicePreviewRequest.md)
 
 
 <a id="documentation-for-authorization"></a>
@@ -118,12 +132,10 @@ Class | Method | HTTP request | Description
 
 
 Authentication schemes defined for the API:
-<a id="ApiKeyAuth"></a>
-### ApiKeyAuth
+<a id="BearerAuth"></a>
+### BearerAuth
 
-- **Type**: API key
-- **API key parameter name**: x-api-key
-- **Location**: HTTP header
+- **Type**: Bearer authentication (JWT)
 
 
 ## Author
