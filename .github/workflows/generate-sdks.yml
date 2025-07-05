@@ -92,7 +92,7 @@ jobs:
             -i openapi.json \
             -g typescript-axios \
             -o typescript-temp \
-            --additional-properties=npmName=@buena/sdk,npmVersion=1.0.0,npmDescription="TypeScript SDK for Buena AI API",npmRepository=https://github.com/Buena-AI/sdks
+            --additional-properties=npmName=@buena/sdk,npmVersion=1.0.0,npmDescription=TypeScript SDK for Buena AI API,npmRepository=https://github.com/Buena-AI/sdks
 
           # Replace the existing typescript directory
           rm -rf typescript/*
