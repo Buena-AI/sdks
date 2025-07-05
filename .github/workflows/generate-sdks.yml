@@ -10,6 +10,10 @@ on:
         required: false
         default: "https://raw.githubusercontent.com/angelpadillar/docs/main/api-reference/openapi.json"
 
+permissions:
+  contents: write
+  packages: write
+
 jobs:
   generate-sdks:
     runs-on: ubuntu-latest
@@ -74,7 +78,7 @@ jobs:
             -i openapi.json \
             -g go \
             -o go-temp \
-            --additional-properties=packageName=buena,moduleName=github.com/Buena-AI/sdks/go,packageVersion=1.0.0
+            --additional-properties=packageName=buena,moduleName=github.com/buena-ai/sdks/go,packageVersion=1.0.0,gitUserId=buena-ai,gitRepoId=sdks
 
           # Replace the existing go directory
           rm -rf go/*
@@ -82,7 +86,10 @@ jobs:
           rm -rf go-temp
 
           # Fix any remaining placeholder issues
-          find go/ -type f -name "*.go" -exec sed -i 's|github.com/GIT_USER_ID/GIT_REPO_ID|github.com/Buena-AI/sdks/go|g' {} \;
+          find go/ -type f -name "*.go" -exec sed -i 's|github.com/GIT_USER_ID/GIT_REPO_ID|github.com/buena-ai/sdks/go|g' {} \;
+          find go/ -type f -name "go.mod" -exec sed -i 's|module github.com/GIT_USER_ID/GIT_REPO_ID|module github.com/buena-ai/sdks/go|g' {} \;
+          find go/ -type f -name "*.go" -exec sed -i 's|{{packageName}}|buena|g' {} \;
+          find go/ -type f -name "*.go" -exec sed -i 's|{{moduleName}}|github.com/buena-ai/sdks/go|g' {} \;
 
       - name: Generate TypeScript SDK
         run: |
@@ -92,12 +99,18 @@ jobs:
             -i openapi.json \
             -g typescript-axios \
             -o typescript-temp \
-            --additional-properties=npmName=@buena/sdk,npmDescription=TypeScript_SDK_for_Buena_AI_API,npmVersion=1.0.0,npmRepository=https://github.com/Buena-AI/sdks
+            --additional-properties=npmName=@buena/sdk,npmVersion=1.0.0,npmDescription=TypeScript_SDK_for_Buena_AI_API,npmRepository=https://github.com/Buena-AI/sdks,gitUserId=Buena-AI,gitRepoId=sdks
 
           # Replace the existing typescript directory
           rm -rf typescript/*
           cp -r typescript-temp/* typescript/
           rm -rf typescript-temp
+
+          # Fix repository URL in package.json
+          if [ -f typescript/package.json ]; then
+            sed -i 's|"url": "git+https://github.com/GIT_USER_ID/GIT_REPO_ID.git"|"url": "git+https://github.com/Buena-AI/sdks.git"|g' typescript/package.json
+            sed -i 's|https://github.com/GIT_USER_ID/GIT_REPO_ID|https://github.com/Buena-AI/sdks|g' typescript/package.json
+          fi
 
       - name: Generate PHP SDK
         run: |
