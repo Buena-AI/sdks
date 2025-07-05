@@ -1,6 +1,6 @@
 [project]
 name = "buena_sdk"
-version = "1.0.0"
+version = "1.0.4"
 description = "Buena.ai API v2"
 authors = [
   {name = "Buena.ai Support",email = "support@buena.ai"},
