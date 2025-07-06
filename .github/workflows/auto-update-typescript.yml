@@ -41,7 +41,7 @@ jobs:
         working-directory: ./typescript
         run: |
           # Always get the latest version from npm and increment
-          LATEST_NPM_VERSION=$(npm view @buena/sdk version 2>/dev/null || echo "0.0.0")
+          LATEST_NPM_VERSION=$(npm view @buena/sdk versions --json 2>/dev/null | jq -r 'if type=="array" then .[-1] else . end' || echo "0.0.0")
           echo "Latest npm version: $LATEST_NPM_VERSION"
           
           # Parse version components
